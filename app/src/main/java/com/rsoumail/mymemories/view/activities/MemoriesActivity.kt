@@ -1,12 +1,26 @@
 package com.rsoumail.mymemories.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.view.LayoutInflater
 import com.rsoumail.mymemories.R
+import com.rsoumail.mymemories.databinding.ActivityMemoriesBinding
+import com.rsoumail.mymemories.view.fragments.MemoriesFragment
+import com.rsoumail.mymemories.view.viewmodels.MemoriesActivityViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class MemoriesActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_memories)
+class MemoriesActivity : FragmentWrapperActivity<MemoriesActivityViewModel, ActivityMemoriesBinding>() {
+
+
+
+    override fun initViews() {
+        viewModel = getViewModel()
+        setFragment(MemoriesFragment())
+    }
+
+    override fun initObservers() {
+
+    }
+
+    override fun setupViewBinding(layoutInflater: LayoutInflater): ActivityMemoriesBinding {
+        return ActivityMemoriesBinding.inflate(layoutInflater)
     }
 }
