@@ -43,7 +43,13 @@ jobs:
           name: code-coverage
           path: ./coverage.xml
 
-      - name: Upload To Codecov
-        run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov ./codecov
+  upload-to-codecov:
+    needs:  code-coverage ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v1
