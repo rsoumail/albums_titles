@@ -29,8 +29,3 @@ jobs:
           arch: x86
           profile: Nexus 6
           script: ./gradlew connectedCheck --stacktrace
-
-      - name: Upload
-          uses: codecov/codecov-action@v1
-          with:
-            files:
