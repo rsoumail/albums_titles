@@ -30,10 +30,3 @@ jobs:
           arguments: assembleRelease
       - name: Run Unit Tests
         run: ./gradlew testStagingDebugUnitTest
-      uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 26
-          target: default
-          arch: x86
-          profile: Nexus 6
-          script: ./gradlew connectedCheck --stacktrace
