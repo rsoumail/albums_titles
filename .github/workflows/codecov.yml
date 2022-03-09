@@ -1,9 +1,17 @@
+# Workflow name
 name: Build
-on: [pull_request, push]
+on:
+# When it will be triggered
+# And in which branch
+  pull_request:
+  push:
+    branches:
+      - feature/memories_feature_test
+# Where will they run
 jobs:
   build:
+
     runs-on: ubuntu-latest
-    steps:
       - name: Checkout the code
         uses: actions/checkout@feature/memories_feature_test
       - name: Set up our JDK environment
