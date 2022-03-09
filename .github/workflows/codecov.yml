@@ -41,7 +41,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: code-coverage
-          path: ./coverage.xml
+          path: /home/runner/work/my_memories/my_memories/app/build/outputs/androidTest-results/connected/test(AVD)%20-%208.0.0/test-result.pb
 
   upload-to-codecov:
     needs:  [build ]
