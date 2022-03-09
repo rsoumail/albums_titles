@@ -29,11 +29,16 @@ jobs:
           ## configuration-cache-enabled: true
         ## arguments: assembleRelease
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest
-    ## uses: reactivecircus/android-emulator-runner@v2
-      ## with:
-          ## api-level: 26
-          ## target: default
-          ## arch: x86
-          ## profile: Nexus 6
-        ## script: ./gradlew connectedCheck --stacktrace
+        ##run: ./gradlew testDebugUnitTest
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 26
+          target: default
+          arch: x86
+          profile: Nexus 6
+          script: ./gradlew connectedCheck --stacktrace
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: ./coverage.xml
