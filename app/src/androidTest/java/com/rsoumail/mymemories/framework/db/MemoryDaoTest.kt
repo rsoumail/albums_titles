@@ -14,8 +14,9 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import androidx.test.ext.junit.runners.AndroidJUnit4
 
-@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class MemoryDaoTest: KoinTest {
 
     private val memoriesDatabase: MemoriesDatabase by inject()
@@ -24,7 +25,7 @@ class MemoryDaoTest: KoinTest {
     /**
      * Override default Koin configuration to use Room in-memory database
      */
-    @Before()
+    @Before
     fun before() {
         startKoin{
             androidContext(ApplicationProvider.getApplicationContext())
