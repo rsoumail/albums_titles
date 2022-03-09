@@ -44,7 +44,7 @@ jobs:
           path: ./coverage.xml
 
   upload-to-codecov:
-    needs:  [code-coverage ]
+    needs:  [build ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
