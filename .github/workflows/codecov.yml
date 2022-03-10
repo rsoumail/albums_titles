@@ -32,14 +32,14 @@ jobs:
         run: ./gradlew testDebugUnitTest
       - name: Run Unit Tests Report Coverage
         run: ./gradlew testDebugUnitTestCoverage
-      - name: Run Android Test
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 26
-          target: default
-          arch: x86
-          profile: Nexus 6
-          script: ./gradlew connectedCheck --stacktrace
+      #- name: Run Android Test
+      #  uses: reactivecircus/android-emulator-runner@v2
+      #  with:
+      #    api-level: 26
+      #    target: default
+      #    arch: x86
+      #    profile: Nexus 6
+      #    script: ./gradlew connectedCheck --stacktrace
 
         #- name: Run Android Tests Report Coverage
         #run: ./gradlew createDebugCoverageReport
