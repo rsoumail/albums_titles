@@ -29,8 +29,10 @@ jobs:
           ## configuration-cache-enabled: true
         ## arguments: assembleRelease
       - name: Run Unit Tests
-        #run: ./gradlew testDebugUnitTest
-      #- name: Run Android Test
+        ./gradlew testDebugUnitTest
+      - name: Run Unit Tests Report Coverage
+          ./gradlew testDebugUnitTestCoverage
+      - name: Run Android Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 26
@@ -39,10 +41,16 @@ jobs:
           profile: Nexus 6
           script: ./gradlew connectedCheck --stacktrace
 
+      - name: Run Android Tests Report Coverage
+          ./gradlew createDebugCoverageReport
+
+      - name: Run Unified Coverage Report
+          ./gradlew connectedAndroidTest jacocoTestReport
+
       - uses: actions/upload-artifact@v2
         with:
-          name: report
-          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
+          name: jacocoTestReport
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/jacoco/
 
   upload-to-codecov:
     needs:  [build]
@@ -53,7 +61,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with: 
-          name: report
-          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
+          name: jacocoTestReport
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/jacoco/
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2
