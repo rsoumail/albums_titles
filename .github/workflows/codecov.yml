@@ -29,8 +29,8 @@ jobs:
           ## configuration-cache-enabled: true
         ## arguments: assembleRelease
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest
-      - name: Run Android Test
+        #run: ./gradlew testDebugUnitTest
+      #- name: Run Android Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 26
@@ -41,16 +41,18 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: code-coverage
-          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
+          name: report
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/debug
 
   upload-to-codecov:
-    needs:  [build ]
+    needs:  [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download artifacts
         uses: actions/download-artifact@v2
+          with: report
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/debug
       - name: Upload to Codecov
         uses: codecov/codecov-action@v1
