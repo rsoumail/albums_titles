@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: jacocoTestReport
+          name: report
           path: /home/runner/work/my_memories/my_memories/app/build/reports/jacoco/jacocoTestReport/
 
   upload-to-codecov:
@@ -67,7 +67,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with: 
-          name: jacocoTestReport
+          name: report
           path: /home/runner/work/my_memories/my_memories/app/build/reports/jacoco/jacocoTestReport/
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2
