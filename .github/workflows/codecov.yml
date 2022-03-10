@@ -45,6 +45,12 @@ jobs:
         #run: ./gradlew createDebugCoverageReport
 
       - name: Run Unified Coverage Report
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 26
+          target: default
+          arch: x86
+          profile: Nexus 6
         run: ./gradlew jacocoTestReport
 
       - uses: actions/upload-artifact@v2
