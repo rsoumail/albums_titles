@@ -41,8 +41,8 @@ jobs:
           profile: Nexus 6
           script: ./gradlew connectedCheck --stacktrace
 
-      - name: Run Android Tests Report Coverage
-        run: ./gradlew createDebugCoverageReport
+        #- name: Run Android Tests Report Coverage
+        #run: ./gradlew createDebugCoverageReport
 
       - name: Run Unified Coverage Report
         run: ./gradlew jacocoTestReport
