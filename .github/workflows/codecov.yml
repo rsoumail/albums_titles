@@ -36,7 +36,7 @@ jobs:
           target: default
           arch: x86
           profile: Nexus 6
-          script: ./gradlew connectedCheck --stacktrace
+          script: ./gradlew clen test connectedCheck --stacktrace
 
       - uses: actions/upload-artifact@v2
         with:
