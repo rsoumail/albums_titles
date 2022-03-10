@@ -41,7 +41,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: code-coverage
-          path: /home/runner/work/my_memories/my_memories/app/build/test-results/testDebugunitTest/
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
 
   upload-to-codecov:
     needs:  [build ]
