@@ -42,7 +42,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: report
-          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/debug
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
 
   upload-to-codecov:
     needs:  [build]
@@ -54,6 +54,6 @@ jobs:
         uses: actions/download-artifact@v2
         with: 
           name: report
-          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/debug
+          path: /home/runner/work/my_memories/my_memories/app/build/reports/coverage/
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
