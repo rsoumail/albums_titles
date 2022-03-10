@@ -29,9 +29,9 @@ jobs:
           ## configuration-cache-enabled: true
         ## arguments: assembleRelease
       - name: Run Unit Tests
-        ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest
       - name: Run Unit Tests Report Coverage
-          ./gradlew testDebugUnitTestCoverage
+        run: ./gradlew testDebugUnitTestCoverage
       - name: Run Android Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -42,10 +42,10 @@ jobs:
           script: ./gradlew connectedCheck --stacktrace
 
       - name: Run Android Tests Report Coverage
-          ./gradlew createDebugCoverageReport
+        run: ./gradlew createDebugCoverageReport
 
       - name: Run Unified Coverage Report
-          ./gradlew connectedAndroidTest jacocoTestReport
+        run: ./gradlew connectedAndroidTest jacocoTestReport
 
       - uses: actions/upload-artifact@v2
         with:
