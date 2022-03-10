@@ -51,7 +51,7 @@ jobs:
           target: default
           arch: x86
           profile: Nexus 6
-        run: ./gradlew jacocoTestReport
+          script: ./gradlew jacocoTestReport
 
       - uses: actions/upload-artifact@v2
         with:
