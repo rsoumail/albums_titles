@@ -135,8 +135,8 @@ ext.excludes = [
         '**/*_Provide*Factory*.*',
         '**/*Extensions*.*',
         '**/utils/*.*',
-        'com/rsoumaila/**/MyMemoriesSharedPreferences.*',
-        'com/rsoumaila/**/MemoriesAdapter.*'
+        '**/MyMemoriesSharedPreferences.*',
+        '**/adapters/*.*'
 ]
 
 android {
@@ -199,8 +199,8 @@ android {
                 fileTree(dir: it,
                         exclude: [
                                 '**/utils/*.*',
-                                'com/rsoumaila/**/MyMemoriesSharedPreferences.*',
-                                'com/rsoumaila/**/MemoriesAdapter.*'
+                                '**/MyMemoriesSharedPreferences.*',
+                                '**/MemoriesAdapter.*'
                         ] // (2)
                 )
             })
