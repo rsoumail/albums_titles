@@ -1,7 +1,6 @@
 package com.rsoumail.mymemories.utils
 
 import com.rsoumail.mymemories.domain.entities.Memory
-import com.rsoumail.mymemories.framework.entities.MemoryModel
 import com.rsoumail.mymemories.framework.network.Album
 import org.junit.Assert
 import org.junit.jupiter.api.Test

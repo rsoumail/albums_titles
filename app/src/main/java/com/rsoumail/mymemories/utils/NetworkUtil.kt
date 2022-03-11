@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import com.rsoumail.mymemories.domain.entities.Result
 import okhttp3.*
 import okhttp3.Interceptor
-import okhttp3.internal.connection.ConnectInterceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -38,7 +37,7 @@ fun createOkHttpClient(context: Context): OkHttpClient {
             .build()
 }
 
-var onlineInterceptor: Interceptor = object : Interceptor {
+val onlineInterceptor: Interceptor = object : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         var request = chain.request()
@@ -73,7 +72,7 @@ val offlineInterceptor: Interceptor = object : Interceptor {
 
             val cacheControl: CacheControl = CacheControl.Builder()
                 .onlyIfCached()
-                .maxStale(1, TimeUnit.DAYS)
+                .maxStale(30, TimeUnit.DAYS)
                 .build()
 
             val offlineRequest: Request = chain.request().newBuilder()

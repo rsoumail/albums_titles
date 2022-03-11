@@ -144,7 +144,10 @@ ext.excludes = [
         '**/MemoriesPagingSource.*',
         '**/MyMemoriesApp*.*',
         '**/MemoriesActivityViewModel*.*',
-        '**/MemoriesDatabase*.*'
+        '**/MemoriesDatabase*.*',
+        '**/OkHttpClient*.*',
+        '**/Interceptor*.*',
+        '**/okhttp3*.*'
 ]
 
 android {
@@ -213,7 +216,10 @@ android {
                                 '**/MemoriesPagingSource.*',
                                 '**/MyMemoriesApp*.*',
                                 '**/MemoriesActivityViewModel*.*',
-                                '**/MemoriesDatabase*.*'
+                                '**/MemoriesDatabase*.*',
+                                '**/OkHttpClient*.*',
+                                '**/Interceptor*.*',
+                                '**/okhttp3*.*'
                         ]
                 )
             })
@@ -229,7 +235,7 @@ android {
             useJUnitPlatform()
             jvmArgs '-noverify', '-ea'
             jacoco {
-                exclude ("*reateWebService", "createOkHttpClient")
+                exclude ("*createWebService", "*createOkHttpClient", "*onlineInterceptor", "*offlineInterceptor", "*intercept")
                 excludes = ['jdk.internal.*']
                 includeNoLocationClasses = true
             }
