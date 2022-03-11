@@ -1,5 +1,6 @@
 package com.rsoumail.mymemories.view.viewmodels
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -7,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.rsoumail.mymemories.domain.entities.Memory
 import com.rsoumail.mymemories.domain.usecase.*
+import com.rsoumail.mymemories.utils.DispatcherProvider
 import com.rsoumail.mymemories.utils.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MemoriesFragmentViewModel(
+    private val dispatchers: DispatcherProvider,
     private val isFirstLaunchUseCase: IsFirstLaunchUseCase,
     private val isNetworkAvailableUseCase: IsNetworkAvailableUseCase,
     private val updateFirstLaunchStatusUseCase: UpdateFirstLaunchStatusUseCase,
@@ -38,7 +41,7 @@ class MemoriesFragmentViewModel(
     }
 
     private fun observeNetworkStatus() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io()) {
             getNetworkStatusNotifier().collect {
                 _showUnavailableNetwork.emit(!it && isFirstLaunchUseCase())
             }
