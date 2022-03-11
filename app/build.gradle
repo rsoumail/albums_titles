@@ -229,6 +229,7 @@ android {
             useJUnitPlatform()
             jvmArgs '-noverify', '-ea'
             jacoco {
+                exclude ("*reateWebService", "createOkHttpClient")
                 excludes = ['jdk.internal.*']
                 includeNoLocationClasses = true
             }

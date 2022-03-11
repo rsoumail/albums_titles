@@ -1,17 +1,23 @@
 package com.rsoumail.mymemories.utils
 
+import android.content.Context
 import com.google.gson.GsonBuilder
+import com.rsoumail.mymemories.domain.entities.Result
+import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.rsoumail.mymemories.domain.entities.Result
+import java.io.IOException
 
-inline fun <reified T> createWebService(url: String): T {
+
+inline fun <reified T> createWebService(url: String, context: Context): T {
     return Retrofit.Builder()
         .baseUrl(url)
-        .client(createOkHttpClient())
+        .client(createOkHttpClient(context))
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder()
@@ -23,11 +29,26 @@ inline fun <reified T> createWebService(url: String): T {
         .create(T::class.java)
 }
 
-fun createOkHttpClient(): OkHttpClient {
+fun createOkHttpClient(context: Context): OkHttpClient {
     return  OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor())
+            .addNetworkInterceptor(onlineInterceptor)
+            .cache(Cache(context.cacheDir, (20 * 1024 * 1024).toLong()))
             .build()
 }
+
+var onlineInterceptor: Interceptor = object : Interceptor {
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        val response: okhttp3.Response = chain.proceed(chain.request())
+        val maxAge = 60 * 60 * 24 // read from cache for 1 day even if there is internet connection
+        return response.newBuilder()
+            .header("Cache-Control", "public, max-age=$maxAge")
+            .removeHeader("Pragma")
+            .build()
+    }
+}
+
 
 suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Result<T> {
     try {

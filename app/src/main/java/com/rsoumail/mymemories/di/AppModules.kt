@@ -61,7 +61,7 @@ val dataModule = module {
     single <MemoriesRepository> { MemoriesRepositoryImpl(remoteMemoriesDataSource = get(), localMemoriesDataSource = get(), networkDataSource = get()) }
     single <RemoteMemoriesDataSource> { RemoteMemoriesDataSourceImpl(remoteMemoriesService = get()) }
     single <LocalMemoriesDataSource> { LocalMemoriesDataSourceImpl(memoryDao = get()) }
-    single <RemoteMemoriesService> { createWebService(REMOTE_MEMORIES_URL) }
+    single <RemoteMemoriesService> { createWebService(REMOTE_MEMORIES_URL, androidApplication()) }
     single <NetworkDataSource> { NetworkDataSourceImpl(context = androidApplication()) }
     single <NetworkRepository> { NetworkRepositoryImpl(networkDataSource = get()) }
     single <SettingsDataSource> { SettingsDataSourceImpl(myMemoriesSharedPreferences = get()) }
