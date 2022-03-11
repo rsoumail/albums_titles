@@ -136,7 +136,11 @@ ext.excludes = [
         '**/*Extensions*.*',
         '**/utils/*.*',
         '**/MyMemoriesSharedPreferences.*',
-        '**/adapters/*.*'
+        '**/adapters/*.*',
+        '**/activities/*.*',
+        '**/fragments/*.*',
+        '**/MemoriesPagingSource.*',
+        '**/MyMemoriesApp.*'
 ]
 
 android {
@@ -200,8 +204,12 @@ android {
                         exclude: [
                                 '**/utils/*.*',
                                 '**/MyMemoriesSharedPreferences.*',
-                                '**/MemoriesAdapter.*'
-                        ] // (2)
+                                '**/MemoriesAdapter.*',
+                                '**/activities/*.*',
+                                '**/fragments/*.*',
+                                '**/MemoriesPagingSource.*',
+                                '**/MyMemoriesApp.*'
+                        ]
                 )
             })
         }
@@ -320,7 +328,6 @@ dependencies {
     // androidTestImplementation for Android instrumentation tests
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
-    //testImplementation "app.cach.turbine:turbine:0.7.0"
     testImplementation 'app.cash.turbine:turbine:0.7.0'
     testImplementation "com.google.truth:truth:1.1.3"
 
