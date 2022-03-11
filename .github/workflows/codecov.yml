@@ -6,7 +6,9 @@ on:
   pull_request:
   push:
     branches:
-      - feature/memories_feature_test
+      - main
+      - develop
+      - feature/*
 # Where will they run
 jobs:
   build:
