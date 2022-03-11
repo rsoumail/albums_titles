@@ -38,7 +38,7 @@ internal class RemoteMemoriesDataSourceImplTest: KoinTest {
 
     private val remoteMemoriesDataSource: RemoteMemoriesDataSource by inject()
     private lateinit var remoteMemoriesService: RemoteMemoriesService
-    private val successResponse = Response.success(listOf(Album(1,1, "title", "url", "thumbnailUrl"), Album(1,2, "title", "url", "thumbnailUrl")))
+    private val successResponse = Response.success(listOf(Album(1, "title", "url", "thumbnailUrl"), Album(2, "title", "url", "thumbnailUrl")))
     private val resultEntities = listOf(Memory(1, "title", "url", "thumbnailUrl"), Memory(2, "title", "url", "thumbnailUrl"))
     private val networkError = "Response.error()"
     private val errorMessage = "Api call failed 404 $networkError"
