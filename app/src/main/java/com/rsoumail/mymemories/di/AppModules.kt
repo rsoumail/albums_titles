@@ -21,6 +21,8 @@ import com.rsoumail.mymemories.framework.datasource.NetworkDataSourceImpl
 import com.rsoumail.mymemories.framework.datasource.RemoteMemoriesDataSourceImpl
 import com.rsoumail.mymemories.framework.datasource.SettingsDataSourceImpl
 import com.rsoumail.mymemories.framework.network.RemoteMemoriesService
+import com.rsoumail.mymemories.utils.DefaultDispatcherProvider
+import com.rsoumail.mymemories.utils.DispatcherProvider
 import com.rsoumail.mymemories.utils.REMOTE_MEMORIES_URL
 import com.rsoumail.mymemories.utils.createWebService
 import com.rsoumail.mymemories.view.viewmodels.MemoriesActivityViewModel
@@ -42,8 +44,9 @@ fun provideMemoryDao(database: MemoriesDatabase): MemoryDao {
 
 val uiModule = module {
     viewModel { MemoriesActivityViewModel() }
-    viewModel { MemoriesFragmentViewModel(isFirstLaunchUseCase = get(), isNetworkAvailableUseCase = get() , updateFirstLaunchStatusUseCase = get() , getNetworkStatusNotifier = get(), memoriesPagingSource = get()) }
+    viewModel { MemoriesFragmentViewModel(dispatchers = get(), isFirstLaunchUseCase = get(), isNetworkAvailableUseCase = get() , updateFirstLaunchStatusUseCase = get() , getNetworkStatusNotifier = get(), memoriesPagingSource = get()) }
     single { MemoriesPagingSource(getMemoriesUseCase = get()) }
+    factory <DispatcherProvider> { DefaultDispatcherProvider() }
 }
 
 val domainModule = module {

@@ -6,10 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface MemoriesRepository {
 
-    //fun loadMemories(): Flow<Result<List<Memory>>>
-
     suspend fun getMemories(): Flow<Result<List<Memory>>>
-
-    suspend fun saveMemories(memories: List<Memory>)
 
 }

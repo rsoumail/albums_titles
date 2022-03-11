@@ -10,7 +10,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class MemoriesActivity : FragmentWrapperActivity<MemoriesActivityViewModel, ActivityMemoriesBinding>() {
 
 
-
     override fun initViews() {
         viewModel = getViewModel()
         setFragment(MemoriesFragment())
