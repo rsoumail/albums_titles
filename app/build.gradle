@@ -7,6 +7,7 @@ plugins {
 
 jacoco {
     toolVersion = "0.8.7"
+    //reportsDirectory = file("${buildDir}/jacoco/")
 }
 
 project.afterEvaluate {
@@ -153,7 +154,7 @@ android {
 
     buildTypes {
         debug {
-            testCoverageEnabled true
+            testCoverageEnabled false
         }
         release {
             minifyEnabled false
@@ -172,7 +173,7 @@ android {
         viewBinding true
     }
 
-    task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+    task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 
         reports {
             xml.required = true
@@ -181,13 +182,6 @@ android {
            // html.destination(file("${buildDir}/coverage-report"))
         }
 
-        def fileFilter = ['**/R.class',
-                          '**/R$*.class',
-                          '**/BuildConfig.*',
-                          '**/Manifest*.*',
-                          '**/*Test*.*',
-                          'android/**/*.*',
-                          '**/utils/*.*', 'com/rsoumaila/**/MyMemoriesSharedPreferences.*']
         def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: project.excludes)
         def mainSrc = "${project.projectDir}/src/main/java"
 
@@ -325,6 +319,10 @@ dependencies {
 
     // androidTestImplementation for Android instrumentation tests
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
+    //testImplementation "app.cach.turbine:turbine:0.7.0"
+    testImplementation 'app.cash.turbine:turbine:0.7.0'
+    testImplementation "com.google.truth:truth:1.1.3"
 
 
 
