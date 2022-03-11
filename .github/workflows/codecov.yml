@@ -53,7 +53,7 @@ jobs:
           #profile: Nexus 6
           #script: ./gradlew jacocoTestReport
       - name: Run Jacoco Coverage
-        run: ./gralew jacocoTestReport
+        run: ./gradlew jacocoTestReport
 
       - uses: actions/upload-artifact@v2
         with:
