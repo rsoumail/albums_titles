@@ -134,13 +134,15 @@ ext.excludes = [
         '**/*_Factory*.*',
         '**/*_Provide*Factory*.*',
         '**/*Extensions*.*',
-        '**/utils/*.*',
+        //'**/utils/*.*',
+        '**/utils/DispatcherProvider*.*',
+        '**/utils/DefaultDispatcherProvider*.*',
         '**/MyMemoriesSharedPreferences.*',
         '**/adapters/*.*',
         '**/activities/*.*',
         '**/fragments/*.*',
         '**/MemoriesPagingSource.*',
-        '**/MyMemoriesApp.*',
+        '**/MyMemoriesApp*.*',
         '**/MemoriesActivityViewModel*.*',
         '**/MemoriesDatabase*.*'
 ]
@@ -202,13 +204,14 @@ android {
             getClassDirectories().setFrom(classDirectories.files.collect {
                 fileTree(dir: it,
                         exclude: [
-                                '**/utils/*.*',
+                                '**/utils/DispatcherProvider*.*',
+                                '**/utils/DefaultDispatcherProvider*.*',
                                 '**/MyMemoriesSharedPreferences.*',
                                 '**/MemoriesAdapter.*',
                                 '**/activities/*.*',
                                 '**/fragments/*.*',
                                 '**/MemoriesPagingSource.*',
-                                '**/MyMemoriesApp.*',
+                                '**/MyMemoriesApp*.*',
                                 '**/MemoriesActivityViewModel*.*',
                                 '**/MemoriesDatabase*.*'
                         ]
