@@ -182,8 +182,6 @@ android {
         reports {
             xml.required = true
             html.required = true
-            //html.outputLocation = layout.buildDirectory.dir("${buildDir}/jacoco/reports")
-           // html.destination(file("${buildDir}/coverage-report"))
         }
 
         def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: project.excludes)
@@ -242,7 +240,6 @@ android {
     }
 
     allprojects {
-       // apply plugin: 'jacoco'
         configurations.all {
             resolutionStrategy.force 'org.objenesis:objenesis:2.6'
             resolutionStrategy {
@@ -295,29 +292,20 @@ dependencies {
     testImplementation "androidx.paging:paging-common:$paging_version"
     //testImplementation "junit:junit:$junit_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
     // Koin testing tools
     androidTestImplementation "io.insert-koin:koin-test:$koin_version"
     // Needed JUnit version
     testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 
-    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    //androidTestImplementation 'androidx.test:runner:1.4.0'
-    //androidTestImplementation 'androidx.test:rules:1.4.0'
-
     implementation 'androidx.test:runner:1.4.0'
     implementation 'androidx.test:rules:1.4.0'
-
-    //For runBlockingTest, CoroutineDispatcher etc.
-    //androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
-    //testImplementation "org.junit.jupiter:junit-jupiter:$junit_version"
-    //testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
 
     testImplementation "io.mockk:mockk:$mockk_verion"
     androidTestImplementation "io.mockk:mockk-android:$mockk_verion"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
 
     testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
     androidTestImplementation "io.insert-koin:koin-test-junit5:$koin_version"
@@ -328,7 +316,7 @@ dependencies {
     // androidTestImplementation for Android instrumentation tests
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
-    testImplementation 'app.cash.turbine:turbine:0.7.0'
+    testImplementation "app.cash.turbine:turbine:$turbine_version"
     testImplementation "com.google.truth:truth:1.1.3"
 
 
