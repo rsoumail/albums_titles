@@ -18,22 +18,25 @@ class MemoriesRepositoryImpl(
 
     override suspend fun getMemories(): Flow<Result<List<Memory>>> {
         return flow {
-            emit(localMemoriesDataSource.getMemories())
+            localMemoriesDataSource.getMemories().collect {
+                emit(it)
+            }
             if (networkDataSource.isNetworkAvailable()) {
                 remoteMemoriesDataSource.getMemories().collect {
                     when (it) {
                         is Result.Success -> {
-                            saveMemories(it.data)
-                            emit(localMemoriesDataSource.getMemories())
+                            localMemoriesDataSource.saveMemories(it.data).collect {
+                                localMemoriesDataSource.getMemories().collect { data ->
+                                    emit(data)
+                                }
+                            }
+
                         }
-                        else -> emit(localMemoriesDataSource.getMemories())
+                        else -> { emit(it) }
                     }
                 }
             }
         }
     }
-
-    override suspend fun saveMemories(memories: List<Memory>) =
-        localMemoriesDataSource.saveMemories(memories)
 
 }

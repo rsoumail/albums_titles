@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalMemoriesDataSource {
 
-    suspend fun getMemories(): Result<List<Memory>>
+    suspend fun getMemories(): Flow<Result<List<Memory>>>
 
-    suspend fun saveMemories(memories: List<Memory>)
+    suspend fun saveMemories(memories: List<Memory>): Flow<Unit>
 }

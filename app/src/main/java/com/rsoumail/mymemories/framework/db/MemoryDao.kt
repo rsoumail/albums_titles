@@ -7,8 +7,8 @@ import com.rsoumail.mymemories.framework.entities.MemoryModel
 interface MemoryDao {
 
     @Query("SELECT * FROM memory")
-    fun getAllMemories(): List<MemoryModel>
+    suspend fun getAllMemories(): List<MemoryModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveMemories(memories: List<MemoryModel>)
+    suspend fun saveMemories(memories: List<MemoryModel>)
 }

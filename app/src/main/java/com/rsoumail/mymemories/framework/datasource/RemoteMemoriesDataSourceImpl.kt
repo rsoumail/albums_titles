@@ -15,7 +15,6 @@ class RemoteMemoriesDataSourceImpl(private val remoteMemoriesService: RemoteMemo
             when (val albums = safeApiCall { remoteMemoriesService.getMemories() }) {
                 is Result.Success -> emit(Result.Success(mapToMemory(albums.data)))
                 is Result.Error -> emit(albums)
-                else -> {}
             }
         }
     }

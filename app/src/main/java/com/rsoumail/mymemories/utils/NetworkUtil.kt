@@ -29,7 +29,7 @@ fun createOkHttpClient(): OkHttpClient {
             .build()
 }
 
-suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>/*, mapper: (t: T?) -> S*/): Result<T> {
+suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Result<T> {
     try {
         val response = apiCall()
         if (response.isSuccessful) {
