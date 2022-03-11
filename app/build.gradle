@@ -140,7 +140,9 @@ ext.excludes = [
         '**/activities/*.*',
         '**/fragments/*.*',
         '**/MemoriesPagingSource.*',
-        '**/MyMemoriesApp.*'
+        '**/MyMemoriesApp.*',
+        '**/MemoriesActivityViewModel*.*',
+        '**/MemoriesDatabase*.*'
 ]
 
 android {
@@ -206,7 +208,9 @@ android {
                                 '**/activities/*.*',
                                 '**/fragments/*.*',
                                 '**/MemoriesPagingSource.*',
-                                '**/MyMemoriesApp.*'
+                                '**/MyMemoriesApp.*',
+                                '**/MemoriesActivityViewModel*.*',
+                                '**/MemoriesDatabase*.*'
                         ]
                 )
             })
