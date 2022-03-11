@@ -135,6 +135,8 @@ ext.excludes = [
         '**/*_Provide*Factory*.*',
         '**/*Extensions*.*',
         //'**/utils/*.*',
+        '**/utils/NetworkUtil*.*',
+        '**/NetworkDataSourceImpl*.*',
         '**/utils/DispatcherProvider*.*',
         '**/utils/DefaultDispatcherProvider*.*',
         '**/MyMemoriesSharedPreferences.*',
@@ -144,7 +146,10 @@ ext.excludes = [
         '**/MemoriesPagingSource.*',
         '**/MyMemoriesApp*.*',
         '**/MemoriesActivityViewModel*.*',
-        '**/MemoriesDatabase*.*'
+        '**/MemoriesDatabase*.*',
+        '**/OkHttpClient*.*',
+        '**/Interceptor*.*',
+        '**/okhttp3*.*'
 ]
 
 android {
@@ -205,6 +210,8 @@ android {
                 fileTree(dir: it,
                         exclude: [
                                 '**/utils/DispatcherProvider*.*',
+                                '**/utils/NetworkUtil*.*',
+                                '**/NetworkDataSourceImpl*.*',
                                 '**/utils/DefaultDispatcherProvider*.*',
                                 '**/MyMemoriesSharedPreferences.*',
                                 '**/MemoriesAdapter.*',
@@ -213,7 +220,10 @@ android {
                                 '**/MemoriesPagingSource.*',
                                 '**/MyMemoriesApp*.*',
                                 '**/MemoriesActivityViewModel*.*',
-                                '**/MemoriesDatabase*.*'
+                                '**/MemoriesDatabase*.*',
+                                '**/OkHttpClient*.*',
+                                '**/Interceptor*.*',
+                                '**/okhttp3*.*'
                         ]
                 )
             })
@@ -229,6 +239,7 @@ android {
             useJUnitPlatform()
             jvmArgs '-noverify', '-ea'
             jacoco {
+                exclude ("*createWebService", "*createOkHttpClient", "*onlineInterceptor", "*offlineInterceptor", "*intercept")
                 excludes = ['jdk.internal.*']
                 includeNoLocationClasses = true
             }
