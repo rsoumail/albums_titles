@@ -11,12 +11,3 @@ fun mapToMemory(albums: List<Album>): List<Memory> {
     }
     return memories
 }
-
-@JvmName("mapToMemory1")
-fun mapToMemory(memoriesModel: List<MemoryModel>): List<Memory> {
-    val memories = arrayListOf<Memory>()
-    memoriesModel.map {
-        memories.add(Memory(it.id, it.title, it.url, it.thumbnailUrl))
-    }
-    return memories
-}

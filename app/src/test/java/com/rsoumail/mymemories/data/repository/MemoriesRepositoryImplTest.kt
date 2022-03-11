@@ -1,20 +1,18 @@
 package com.rsoumail.mymemories.data.repository
 
 import app.cash.turbine.test
-import com.rsoumail.mymemories.data.datasource.LocalMemoriesDataSource
 import com.rsoumail.mymemories.data.datasource.NetworkDataSource
 import com.rsoumail.mymemories.data.datasource.RemoteMemoriesDataSource
 import com.rsoumail.mymemories.domain.entities.Memory
 import com.rsoumail.mymemories.domain.entities.Result
 import com.rsoumail.mymemories.domain.repository.MemoriesRepository
-import com.rsoumail.mymemories.framework.entities.MemoryModel
-import io.mockk.*
-import kotlinx.coroutines.flow.collect
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockkClass
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -33,7 +31,7 @@ internal class MemoriesRepositoryImplTest: KoinTest {
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
         modules(module{
-            single <MemoriesRepository> { MemoriesRepositoryImpl(localMemoriesDataSource = get(), remoteMemoriesDataSource = get(), networkDataSource = get()) }
+            single <MemoriesRepository> { MemoriesRepositoryImpl(remoteMemoriesDataSource = get()) }
         })
     }
 
@@ -44,16 +42,13 @@ internal class MemoriesRepositoryImplTest: KoinTest {
     }
 
     private val memoriesRepository: MemoriesRepository by inject()
-    private lateinit var localMemoriesDataSource: LocalMemoriesDataSource
     private lateinit var remoteMemoriesDataSource: RemoteMemoriesDataSource
     private lateinit var networkDataSource: NetworkDataSource
-    private val entitiesGet = listOf(MemoryModel(1, "title", "url", "thumbnailUrl"))
     private val entitiesSave = listOf(Memory(1, "title", "url", "thumbnailUrl"))
     private val errorMessage = "Error"
 
     @BeforeEach
     fun setUp() {
-        localMemoriesDataSource = declareMock {  }
         remoteMemoriesDataSource = declareMock {  }
         networkDataSource = declareMock {  }
     }
@@ -64,31 +59,8 @@ internal class MemoriesRepositoryImplTest: KoinTest {
     }
 
     @Test
-    fun `it should getMemories from database`() {
+    fun `it should getMemories successfully`() {
 
-        coEvery { localMemoriesDataSource.getMemories() } returns flow { entitiesGet }
-        every { networkDataSource.isNetworkAvailable() } returns false
-
-        runBlocking {
-            val flow = memoriesRepository.getMemories()
-            flow.collect { result ->
-                assertTrue { result is Result.Success }
-                Assert.assertEquals((result as Result.Success).data, listOf(entitiesGet))
-            }
-            coVerify { localMemoriesDataSource.getMemories() }
-        }
-    }
-
-    @Test
-    fun `it should getMemories from database and update from remote`() {
-
-        coEvery { localMemoriesDataSource.getMemories() } returns flow {
-            emit(
-                Result.Success(
-                    entitiesSave
-                )
-            )
-        }
         coEvery { remoteMemoriesDataSource.getMemories() } returns flow {
             emit(
                 Result.Success(
@@ -96,41 +68,32 @@ internal class MemoriesRepositoryImplTest: KoinTest {
                 )
             )
         }
-        coEvery { localMemoriesDataSource.saveMemories(Result.Success(entitiesSave).data) } returns flow { emit (Unit)}
+
         every { networkDataSource.isNetworkAvailable() } returns true
 
         runBlocking {
             val flow = memoriesRepository.getMemories()
             flow.test {
-                assertEquals(Result.Success(entitiesSave), awaitItem())
                 assertEquals(Result.Success(entitiesSave), awaitItem())
                 awaitComplete()
             }
         }
 
-        coVerify { localMemoriesDataSource.getMemories() }
         coVerify { remoteMemoriesDataSource.getMemories() }
-        verify { networkDataSource.isNetworkAvailable() }
-        coVerify { localMemoriesDataSource.saveMemories(Result.Success(entitiesSave).data) }
     }
 
     @Test
-    fun `it should getMemories from database and failed to get from remote`() {
+    fun `it should failed to getMemories`() {
 
-        coEvery { localMemoriesDataSource.getMemories() } returns flow { emit(Result.Success(entitiesSave)) }
         coEvery { remoteMemoriesDataSource.getMemories() } returns flow { emit(Result.Error(errorMessage)) }
-        every { networkDataSource.isNetworkAvailable() } returns true
 
         runBlocking {
             val flow = memoriesRepository.getMemories()
             flow.test {
-                assertEquals(Result.Success(entitiesSave), awaitItem())
                 assertEquals(Result.Error(errorMessage), awaitItem())
                 awaitComplete()
             }
-            coVerify { localMemoriesDataSource.getMemories() }
             coVerify { remoteMemoriesDataSource.getMemories() }
-            verify { networkDataSource.isNetworkAvailable() }
         }
     }
 }

@@ -8,19 +8,13 @@ import org.junit.jupiter.api.Test
 
 internal class MemoriesUtilsKtTest {
 
-
-    private val memoryModel = listOf(MemoryModel(1, "title", "url", "thumbnailUrl"))
     private val albums = listOf(Album(1, "title", "url", "thumbnailUrl"))
     private val memories = listOf(Memory(1, "title", "url", "thumbnailUrl"))
 
 
-    @Test
-    fun mapToMemory() {
-        Assert.assertEquals(memories, mapToMemory(memoryModel))
-    }
 
     @Test
-    fun mapToMemory1() {
+    fun mapToMemory() {
         Assert.assertEquals(memories, mapToMemory(albums))
     }
 }
